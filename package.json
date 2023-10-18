@@ -1,0 +1,55 @@
+{
+  "name": "koishi-plugin-ba-logo",
+  "description": "碧蓝档案 Logo 生成器",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "scripts": {
+    "build":"tsc"
+  },
+  "author": {
+    "name": "SaarChaffee",
+    "email": "saarchaffee@qq.com",
+    "url": "https://github.com/SaarChaffee"
+  },
+  "homepage": "https://github.com/SaarChaffee/koishi-plugin-ba-logo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaarChaffee/koishi-plugin-ba-logo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SaarChaffee/koishi-plugin-ba-logo/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin",
+    "bluearchive",
+    "BA",
+    "碧蓝档案",
+    "ブルアカ",
+    "meme"
+  ],
+  "koishi": {
+    "description": {
+      "zh": "碧蓝档案 Logo 生成器",
+      "en": "BlueArchive-style Logo Generater"
+    },
+    "service": {
+      "required": [
+        "puppeteer"
+      ]
+    },
+    "locales": [
+      "zh"
+    ]
+  },
+  "peerDependencies": {
+    "koishi": "^4.15.1"
+  }
+}
