@@ -30,7 +30,7 @@ export function apply(ctx: Context) {
     .option('haloY', '-y <y:number> 光环相对于中心垂直偏移距离，默认 0')
     .action(async ({ session, options }, textL, textR) => {
       const page = await session.app.puppeteer.browser.newPage()
-      await page.goto(normalize(__dirname, '../public/index.html'), { waitUntil: 'networkidle0' })
+      await page.goto(`file:///${normalize(__dirname, '../public/index.html')}`, { waitUntil: 'networkidle0' })
 
       await page.evaluate(async (inputs: Inputs, config: BALogoConstructor) => {
         const ba = new BALogo(config)
