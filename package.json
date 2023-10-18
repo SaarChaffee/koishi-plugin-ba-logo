@@ -1,15 +1,17 @@
 {
   "name": "koishi-plugin-ba-logo",
   "description": "碧蓝档案 Logo 生成器",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
-    "dist"
+    "dist",
+    "public"
   ],
   "scripts": {
-    "build":"tsc"
+    "build":"tsc",
+    "publish": "npm publish --registry https://registry.npmjs.org"
   },
   "author": {
     "name": "SaarChaffee",
