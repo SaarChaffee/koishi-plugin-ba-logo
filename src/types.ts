@@ -24,3 +24,8 @@ export interface GraphOffset {
   X: number
   Y: number
 }
+
+export interface Results{
+  result: 'at' | 'text' | 'invalid'
+  text?: string
+}
