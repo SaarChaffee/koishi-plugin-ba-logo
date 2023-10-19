@@ -27,5 +27,5 @@ export interface GraphOffset {
 
 export interface Results{
   result: 'at' | 'text' | 'invalid'
-  text?: string
+  msg: string
 }
