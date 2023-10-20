@@ -17,7 +17,7 @@ export class BALogo {
   private textMetricsR: TextMetrics | null = null
   private transparentBg: boolean
   private font: string
-  private fontFamily: string
+  private fontFamily = 'RoGSanSrfStd-Bd, GlowSansSC-Normal-Heavy_diff, apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif'
   private hollowPath = [
     [284, 136],
     [321, 153],
@@ -29,10 +29,9 @@ export class BALogo {
     this.fontSize = options?.fontSize || config?.fontSize || 84
     this.transparentBg = options?.transparent || config?.transparent || false
     this.graphOffset = {
-      X: options?.haloX || -18,
-      Y: options?.haloY || 0
+      X: options?.haloX || config.haloX || -18,
+      Y: options?.haloY || config.haloY || 0
     }
-    this.fontFamily = 'RoGSanSrfStd-Bd, GlowSansSC-Normal-Heavy_diff, apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif'
     this.font = `${this.fontSize}px ${this.fontFamily}`
   }
 
@@ -64,7 +63,7 @@ export class BALogo {
     this.textWidthR =
       this.textMetricsR!.width +
       (this.textBaseLine * this.canvasHeight - this.textMetricsR!.fontBoundingBoxAscent) * this.horizontalTilt
-    //extend canvas
+    // extend canvas
     if (this.textWidthL + this.paddingX > this.canvasWidth / 2) {
       this.canvasWidthL = this.textWidthL + this.paddingX
     } else {
@@ -78,7 +77,7 @@ export class BALogo {
     canvas.width = this.canvasWidthL + this.canvasWidthR
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    //background
+    // background
     if (!this.transparentBg) {
       ctx.fillStyle = '#fff'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -179,7 +178,7 @@ export class BALogo {
         canvas,
         this.canvasWidth / 2 - this.textWidthL - this.paddingX,
         0,
-        this.textWidthL + this.textWidthR + this.paddingX * 2,
+        canvas.width,
         canvas.height,
         0,
         0,

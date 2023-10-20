@@ -15,6 +15,8 @@ export const using = ['puppeteer'] as const
 export const Config: Schema<BALogoConfig> = Schema.object({
   fontSize: Schema.number().default(84),
   transparent: Schema.boolean().default(true),
+  haloX: Schema.number().default(-18),
+  haloY: Schema.number().default(0)
 })
 
 function normalize(...file: string[]) {

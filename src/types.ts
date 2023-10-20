@@ -18,6 +18,8 @@ export interface Options {
 export interface BALogoConfig {
   fontSize: number
   transparent: boolean
+  haloX: number
+  haloY: number
 }
 
 export interface GraphOffset {
