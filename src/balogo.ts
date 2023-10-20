@@ -6,7 +6,7 @@ export class BALogo {
   private paddingX = 10
   private horizontalTilt = -0.4
   private textBaseLine = 0.68
-  private fontSize = 84
+  private fontSize: number
   private canvasHeight = 250
   private canvasWidth = 900
   private canvasWidthL = this.canvasWidth / 2

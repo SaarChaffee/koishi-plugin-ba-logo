@@ -14,7 +14,7 @@ export const using = ['puppeteer'] as const
 
 export const Config: Schema<BALogoConfig> = Schema.object({
   fontSize: Schema.number().default(84),
-  transparent: Schema.boolean().default(true),
+  transparent: Schema.boolean().default(false),
   haloX: Schema.number().default(-18),
   haloY: Schema.number().default(0)
 })
@@ -75,7 +75,7 @@ export function apply(ctx: Context) {
         }, { textL: results[0].msg, textR: results[1].msg }, { options, config: ctx.config })
 
         const canvas = await page.$('#output')
-        const im = await canvas.screenshot({ type: 'png' })
+        const im = await canvas.screenshot({ type: 'png', omitBackground: true })
         await session.send(h.image(im, 'image/png'))
         await page.close()
       }
