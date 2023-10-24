@@ -43,7 +43,8 @@
   "koishi": {
     "description": {
       "zh": "碧蓝档案 Logo 生成器",
-      "en": "BlueArchive-style Logo Generater"
+      "en": "BlueArchive-style Logo Generater",
+      "fr": "Un générateur de logo dans le style de Blue Archive"
     },
     "service": {
       "required": [
