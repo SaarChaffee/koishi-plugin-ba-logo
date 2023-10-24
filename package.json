@@ -17,6 +17,13 @@
     "email": "saarchaffee@qq.com",
     "url": "https://github.com/SaarChaffee"
   },
+  "contributors": [
+    {
+      "name": "Maiko Tan",
+      "email": "maiko.tan.coding@gmail.com",
+      "url": "https://github.com/MaikoTan"
+    }
+  ],
   "homepage": "https://github.com/SaarChaffee/koishi-plugin-ba-logo",
   "repository": {
     "type": "git",
