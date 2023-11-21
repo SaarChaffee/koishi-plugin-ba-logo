@@ -29,8 +29,8 @@ export class BALogo {
     this.fontSize = options?.fontSize || config?.fontSize || 84
     this.transparentBg = options?.transparent || config?.transparent || false
     this.graphOffset = {
-      X: options?.haloX || config.haloX || -18,
-      Y: options?.haloY || config.haloY || 0
+      X: options?.haloX || config?.haloX || -18,
+      Y: options?.haloY || config?.haloY || 0
     }
     this.font = `${this.fontSize}px ${this.fontFamily}`
   }
@@ -120,10 +120,10 @@ export class BALogo {
       Y: this.graphOffset.Y,
     }
     ctx.beginPath()
-    ctx.moveTo(graph.X + this.hollowPath[0][0] / 2, graph.Y + this.hollowPath[0][1] / 2)
-    ctx.lineTo(graph.X + this.hollowPath[1][0] / 2, graph.Y + this.hollowPath[1][1] / 2)
-    ctx.lineTo(graph.X + this.hollowPath[2][0] / 2, graph.Y + this.hollowPath[2][1] / 2)
-    ctx.lineTo(graph.X + this.hollowPath[3][0] / 2, graph.Y + this.hollowPath[3][1] / 2)
+    ctx.moveTo(graph.X + (this.hollowPath[0][0] / 500) * this.canvasHeight, graph.Y + (this.hollowPath[0][1] / 500) * this.canvasHeight)
+    for (let i = 1; i < 4; i++) {
+      ctx.lineTo(graph.X + (this.hollowPath[i][0] / 500) * this.canvasHeight, graph.Y + (this.hollowPath[i][1] / 500) * this.canvasHeight)
+    }
     ctx.closePath()
     if (this.transparentBg) {
       ctx.globalCompositeOperation = 'destination-out'
