@@ -57,7 +57,7 @@ export function apply(ctx: Context) {
   ctx
     .command('ba <textL:string> <textR:string>')
     .option('fontSize', '-f <font:number> 字体大小')
-    .option('transparent', '-t 透明背景')
+    .option('transparent', '-t 是否透明背景')
     .option('haloX', '-x <x:number> 光环相对于中心水平偏移距离，默认 -15')
     .option('haloY', '-y <y:number> 光环相对于中心垂直偏移距离，默认 0')
     .action(async ({ session, options }, textL, textR) => {

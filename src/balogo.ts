@@ -26,11 +26,11 @@ export class BALogo {
   ]
 
   constructor({ options, config }: BALogoConstructor) {
-    this.fontSize = options?.fontSize || config?.fontSize || 84
-    this.transparentBg = options?.transparent || config?.transparent || false
+    this.fontSize = options?.fontSize || config.fontSize
+    this.transparentBg = options?.transparent ? !config.transparent : config.transparent
     this.graphOffset = {
-      X: options?.haloX || config?.haloX || -18,
-      Y: options?.haloY || config?.haloY || 0
+      X: options?.haloX || config.haloX,
+      Y: options?.haloY || config.haloY
     }
     this.font = `${this.fontSize}px ${this.fontFamily}`
   }
