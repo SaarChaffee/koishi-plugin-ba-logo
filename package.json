@@ -10,7 +10,7 @@
     "public"
   ],
   "scripts": {
-    "build":"tsc"
+    "build": "tsc"
   },
   "author": {
     "name": "SaarChaffee",
