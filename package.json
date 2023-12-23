@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-ba-logo",
   "description": "碧蓝档案 Logo 生成器",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
