@@ -54,12 +54,16 @@ async function validator(texts: string[], session: Session): Promise<Results[]> 
 }
 
 export function apply(ctx: Context) {
+  ctx.i18n.define('zh', require('./locales/zh-CN'))
+  ctx.i18n.define('en', require('./locales/en-US'))
+  ctx.i18n.define('jp', require('./locales/ja-JP'))
+  
   ctx
     .command('ba <textL:string> <textR:string>')
-    .option('fontSize', '-f <font:number> 字体大小')
-    .option('transparent', '-t 是否透明背景')
-    .option('haloX', '-x <x:number> 光环相对于中心水平偏移距离，默认 -15')
-    .option('haloY', '-y <y:number> 光环相对于中心垂直偏移距离，默认 0')
+    .option('fontSize', '-f <font:number>')
+    .option('transparent', '-t')
+    .option('haloX', '-x <x:number>')
+    .option('haloY', '-y <y:number>')
     .action(async ({ session, options }, textL, textR) => {
 
       const results = await validator([textL, textR], session)

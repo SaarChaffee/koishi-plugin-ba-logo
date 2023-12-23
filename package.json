@@ -59,7 +59,9 @@
       ]
     },
     "locales": [
-      "zh"
+      "zh",
+      "en",
+      "jp"
     ]
   },
   "peerDependencies": {

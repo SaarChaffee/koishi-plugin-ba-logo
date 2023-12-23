@@ -1,0 +1,9 @@
+commands:
+  ba:
+    description: 生成碧蓝档案风格Logo
+
+    options:
+      fontSize: 字体大小
+      transparent: 是否透明背景
+      haloX: 光环相对于中心水平偏移距离，默认 -15
+      haloY: 光环相对于中心垂直偏移距离，默认 0
