@@ -5,3 +5,6 @@
 *.ico -text
 *.gif -text
 *.webp -text
+*.html -text
+*.css -text
+*.woff2 -text
