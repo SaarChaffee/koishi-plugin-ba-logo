@@ -9,9 +9,6 @@
     "dist",
     "public"
   ],
-  "scripts": {
-    "build": "tsc"
-  },
   "author": {
     "name": "SaarChaffee",
     "email": "saarchaffee@qq.com",
