@@ -35,19 +35,11 @@ export class BALogo {
     this.font = `${this.fontSize}px ${this.fontFamily}`
   }
 
-  async loadFonts(text: string) {
-    await document.fonts.load(
-      this.font,
-      text
-    )
-  }
-
   async draw({ textL, textR }: Inputs) {
     const canvas = document.querySelector('#canvas') as HTMLCanvasElement
     const ctx = canvas.getContext('2d')
     const halo = document.querySelector('#halo') as HTMLImageElement
     const cross = document.querySelector('#cross') as HTMLImageElement
-    await this.loadFonts(textL + textR)
 
     // Initial
     canvas.height = this.canvasHeight

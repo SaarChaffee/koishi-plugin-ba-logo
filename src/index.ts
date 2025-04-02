@@ -1,16 +1,15 @@
-import path from 'path'
-import { Context, Schema, Logger, h, Session } from 'koishi'
-import { } from 'koishi-plugin-puppeteer'
+import { resolve } from 'path'
+import { Context, Schema, h, Session } from 'koishi'
 import { Inputs, BALogoConfig, BALogoConstructor, Results } from './types'
 
+import type {} from 'koishi-plugin-fonts'
+import type {} from 'koishi-plugin-puppeteer'
 import type { BALogo as BALogoType } from './balogo'
 declare const BALogo: typeof BALogoType
 
 export const name = 'ba-logo'
 
-const logger = new Logger('ba-logo')
-
-export const using = ['puppeteer'] as const
+export const inject = ['puppeteer', 'fonts']
 
 export const Config: Schema<BALogoConfig> = Schema.object({
   fontSize: Schema.number().default(84),
@@ -18,10 +17,6 @@ export const Config: Schema<BALogoConfig> = Schema.object({
   haloX: Schema.number().default(-18),
   haloY: Schema.number().default(0)
 })
-
-function normalize(...file: string[]) {
-  return path.posix.normalize(path.resolve(...file))
-}
 
 async function validator(texts: string[], session: Session): Promise<Results[]> {
   const results: Results[] = []
@@ -57,7 +52,10 @@ export function apply(ctx: Context) {
   ctx.i18n.define('zh', require('./locales/zh-CN'))
   ctx.i18n.define('en', require('./locales/en-US'))
   ctx.i18n.define('jp', require('./locales/ja-JP'))
-  
+
+  ctx.fonts.register('GlowSansSC-Normal-Heavy_diff', resolve(__dirname, '../public/fonts/GlowSans'))
+  ctx.fonts.register('RoGSanSrfStd-Bd', resolve(__dirname, '../public/fonts/RoGSans'))
+
   ctx
     .command('ba <textL:string> <textR:string>')
     .option('fontSize', '-f <font:number>')
@@ -65,14 +63,17 @@ export function apply(ctx: Context) {
     .option('haloX', '-x <x:number>')
     .option('haloY', '-y <y:number>')
     .action(async ({ session, options }, textL, textR) => {
-
       const results = await validator([textL, textR], session)
 
       if (results.some(r => r.result === 'invalid')) {
         return session.text(results.find(r => r.result === 'invalid').msg)
       } else {
-        const page = await session.app.puppeteer.browser.newPage()
-        await page.goto(`file:///${normalize(__dirname, '../public/index.html')}`, { waitUntil: 'networkidle0' })
+        const page = await ctx.fonts.createPageWithFonts(
+          ['RoGSanSrfStd-Bd', 'GlowSansSC-Normal-Heavy_diff'],
+          resolve(__dirname, '../public/index.html'),
+          { waitUntil: 'networkidle0' },
+        )
+
         await page.evaluate(async (inputs: Inputs, config: BALogoConstructor) => {
           const ba = new BALogo(config)
           await ba.draw(inputs)
