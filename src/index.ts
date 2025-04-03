@@ -68,7 +68,7 @@ export function apply(ctx: Context) {
       if (results.some(r => r.result === 'invalid')) {
         return session.text(results.find(r => r.result === 'invalid').msg)
       } else {
-        const page = await ctx.fonts.createPageWithFonts(
+        const page = await ctx.puppeteer.pageWithFonts(
           ['RoGSanSrfStd-Bd', 'GlowSansSC-Normal-Heavy_diff'],
           resolve(__dirname, '../public/index.html'),
           { waitUntil: 'networkidle0' },
