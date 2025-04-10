@@ -71,6 +71,7 @@ export function apply(ctx: Context) {
         const page = await ctx.puppeteer.pageWithFonts(
           ['RoGSanSrfStd-Bd', 'GlowSansSC-Normal-Heavy_diff'],
           resolve(__dirname, '../public/index.html'),
+          '',
           { waitUntil: 'networkidle0' },
         )
 

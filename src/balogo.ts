@@ -40,6 +40,10 @@ export class BALogo {
     const ctx = canvas.getContext('2d')
     const halo = document.querySelector('#halo') as HTMLImageElement
     const cross = document.querySelector('#cross') as HTMLImageElement
+    await document.fonts.load(
+      this.font,
+      textL + textR
+    )
 
     // Initial
     canvas.height = this.canvasHeight
