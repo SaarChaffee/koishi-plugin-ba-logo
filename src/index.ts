@@ -53,8 +53,8 @@ export function apply(ctx: Context) {
   ctx.i18n.define('en', require('./locales/en-US'))
   ctx.i18n.define('jp', require('./locales/ja-JP'))
 
-  ctx.fonts.register('GlowSansSC-Normal-Heavy_diff', resolve(__dirname, '../public/fonts/GlowSans'))
-  ctx.fonts.register('RoGSanSrfStd-Bd', resolve(__dirname, '../public/fonts/RoGSans'))
+  ctx.fonts.register('GlowSansSC-Normal-Heavy_diff', resolve(__dirname, '../public/fonts/GlowSans'), name)
+  ctx.fonts.register('RoGSanSrfStd-Bd', resolve(__dirname, '../public/fonts/RoGSans'), name)
 
   ctx
     .command('ba <textL:string> <textR:string>')
