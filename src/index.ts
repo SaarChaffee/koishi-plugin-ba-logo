@@ -68,11 +68,12 @@ export function apply(ctx: Context) {
       if (results.some(r => r.result === 'invalid')) {
         return session.text(results.find(r => r.result === 'invalid').msg)
       } else {
-        const page = await ctx.puppeteer.pageWithFonts(
-          ['RoGSanSrfStd-Bd', 'GlowSansSC-Normal-Heavy_diff'],
-          resolve(__dirname, '../public/index.html'),
-          '',
-          { waitUntil: 'networkidle0' },
+        const page = await ctx.puppeteer.page(
+          {
+            families: ['RoGSanSrfStd-Bd', 'GlowSansSC-Normal-Heavy_diff'],
+            url: resolve(__dirname, '../public/index.html'),
+            gotoOptions: { waitUntil: 'networkidle0' }
+          },
         )
 
         await page.evaluate(async (inputs: Inputs, config: BALogoConstructor) => {
