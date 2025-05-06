@@ -86,4 +86,8 @@ export function apply(ctx: Context) {
         await page.close()
       }
     })
+
+  ctx.on('dispose', () => {
+    ctx.fonts.clear(name)
+  })
 }
