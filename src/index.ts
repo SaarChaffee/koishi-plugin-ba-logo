@@ -4,6 +4,8 @@ import { Inputs, BALogoConfig, BALogoConstructor, Results } from './types'
 
 import type {} from 'koishi-plugin-fonts'
 import type {} from 'koishi-plugin-puppeteer'
+import type {} from 'koishi-plugin-fonts4pptr'
+
 import type { BALogo as BALogoType } from './balogo'
 declare const BALogo: typeof BALogoType
 
@@ -53,41 +55,43 @@ export function apply(ctx: Context) {
   ctx.i18n.define('en', require('./locales/en-US'))
   ctx.i18n.define('jp', require('./locales/ja-JP'))
 
-  ctx.fonts.manifestRegister(resolve(__dirname, '../public/fonts/fonts.json'), name)
+  ctx.inject(['puppeteer', 'fonts4pptr'], (c) => {
+    c.fonts.manifestRegister(resolve(__dirname, '../public/fonts/fonts.json'), name)
 
-  ctx
-    .command('ba <textL:string> <textR:string>')
-    .option('fontSize', '-f <font:number>')
-    .option('transparent', '-t')
-    .option('haloX', '-x <x:number>')
-    .option('haloY', '-y <y:number>')
-    .action(async ({ session, options }, textL, textR) => {
-      const results = await validator([textL, textR], session)
+    c
+      .command('ba <textL:string> <textR:string>')
+      .option('fontSize', '-f <font:number>')
+      .option('transparent', '-t')
+      .option('haloX', '-x <x:number>')
+      .option('haloY', '-y <y:number>')
+      .action(async ({ session, options }, textL, textR) => {
+        const results = await validator([textL, textR], session)
 
-      if (results.some(r => r.result === 'invalid')) {
-        return session.text(results.find(r => r.result === 'invalid').msg)
-      } else {
-        const page = await ctx.puppeteer.page(
-          {
-            families: ['RoGSanSrfStd-Bd', 'GlowSansSC-Normal-Heavy_diff'],
-            url: resolve(__dirname, '../public/index.html'),
-            gotoOptions: { waitUntil: 'networkidle0' }
-          },
-        )
+        if (results.some(r => r.result === 'invalid')) {
+          return session.text(results.find(r => r.result === 'invalid').msg)
+        } else {
+          const page = await (c.puppeteer as any).page(
+            {
+              families: ['RoGSanSrfStd-Bd', 'GlowSansSC-Normal-Heavy_diff'],
+              url: resolve(__dirname, '../public/index.html'),
+              gotoOptions: { waitUntil: 'networkidle0' }
+            },
+          )
 
-        await page.evaluate(async (inputs: Inputs, config: BALogoConstructor) => {
-          const ba = new BALogo(config)
-          await ba.draw(inputs)
-        }, { textL: results[0].msg, textR: results[1].msg }, { options, config: ctx.config })
+          await page.evaluate(async (inputs: Inputs, config: BALogoConstructor) => {
+            const ba = new BALogo(config)
+            await ba.draw(inputs)
+          }, { textL: results[0].msg, textR: results[1].msg }, { options, config: ctx.config })
 
-        const canvas = await page.$('#output')
-        const im = await canvas.screenshot({ type: 'png', omitBackground: true })
-        await session.send(h.image(im, 'image/png'))
-        await page.close()
-      }
+          const canvas = await page.$('#output')
+          const im = await canvas.screenshot({ type: 'png', omitBackground: true })
+          await session.send(h.image(im, 'image/png'))
+          await page.close()
+        }
+      })
+
+    ctx.on('dispose', () => {
+      c.fonts.clear(name)
     })
-
-  ctx.on('dispose', () => {
-    ctx.fonts.clear(name)
   })
 }
