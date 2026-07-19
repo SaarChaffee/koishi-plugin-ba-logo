@@ -63,12 +63,32 @@
       "jp"
     ]
   },
+  "packageManager": "yarn@4.17.1",
+  "scripts": {
+    "build": "yakumo build",
+    "bump": "yakumo version",
+    "dep": "yakumo upgrade",
+    "pub": "yakumo publish"
+  },
   "peerDependencies": {
     "koishi": "^4.18.7"
   },
   "devDependencies": {
+    "@types/node": "^20.17.30",
+    "esbuild": "^0.25.2",
+    "esbuild-register": "^3.6.0",
+    "koishi": "^4.18.7",
     "koishi-plugin-fonts": "^1.0.2",
     "koishi-plugin-fonts4pptr": "^1.0.0",
-    "koishi-plugin-puppeteer": "^3.8.0"
+    "koishi-plugin-puppeteer": "^3.8.0",
+    "typescript": "^5.9.0-dev.20250403",
+    "yakumo": "^3.2.1",
+    "yakumo-esbuild": "^3.0.2",
+    "yakumo-publish": "^0.3.10",
+    "yakumo-publish-sync": "^1.0.0-alpha.1",
+    "yakumo-tsc": "^3.0.1",
+    "yakumo-upgrade": "^0.3.6",
+    "yakumo-version": "^0.3.4",
+    "yml-register": "^1.2.5"
   }
 }

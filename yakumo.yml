@@ -1,0 +1,13 @@
+- name: yakumo
+  config:
+    pipeline:
+      build:
+        - tsc
+        - esbuild
+- name: yakumo-esbuild
+- name: yakumo-tsc
+- name: yakumo-publish-sync
+- name: yakumo/publish
+- name: yakumo/prepare
+- name: yakumo/upgrade
+- name: yakumo/version

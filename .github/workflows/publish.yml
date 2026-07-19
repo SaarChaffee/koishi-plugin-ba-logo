@@ -1,0 +1,66 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    permissions:
+      id-token: write
+      contents: read
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v6
+      - name: Set up Node
+        uses: actions/setup-node@v6
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Check Yarn Version
+        id: yarn-version
+        shell: bash
+        run: |
+          VERSION=$(yarn --version)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "is-berry=$(echo $VERSION | grep -v '^1\.' | wc -l)" >> $GITHUB_OUTPUT
+
+      - name: Get Yarn Cache Directory Path (Yarn 1)
+        if: steps.yarn-version.outputs.is-berry == '0'
+        id: yarn-cache-dir-path
+        shell: bash
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+
+      - name: Get Yarn Cache Directory Path (Yarn 2)
+        if: steps.yarn-version.outputs.is-berry == '1'
+        id: yarn-berry-cache-dir-path
+        shell: bash
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: Cache Dependencies
+        id: cache-yarn
+        uses: actions/cache@v6
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir || steps.yarn-berry-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Dependencies
+        shell: bash
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - name: Set Publish Config
+        run: |
+          yarn config set npmPublishProvenance true
+          yarn config set npmRegistryServer https://registry.npmjs.org/
+
+
+      - name: Publish
+        run: yarn pub --debug
