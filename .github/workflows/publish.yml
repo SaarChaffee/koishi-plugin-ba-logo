@@ -42,4 +42,4 @@ jobs:
           yarn config set npmRegistryServer https://registry.npmjs.org/
       - name: Publish
         run:
-          yarn publish
+          yarn npm publish --provenance --access public
